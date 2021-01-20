@@ -30,20 +30,30 @@ const initialState = {
 
 export const carReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_FEATURE": //these need to
+    case "ADD_FEATURE": //the type within the action
       return {
-        ...state, //copy state
-        additionalPrice: state.additionalPrice + action.payload.price, //action.payload is the object that stores price
+        ...state, //copy state that doesn't need to be changed
+        additionalPrice: state.additionalPrice + action.payload.price, //action.payload is feature so go deeper into price.
         car: {
-          ...state.car,
-          features: [...state.car.features, action.payload],
+          ...state.car, //copy the car object that isn't changed
+          features: [...state.car.features, action.payload], //change features to add the feature
         },
         additionalFeatures: state.additionalFeatures.filter((feature) => {
-          return feature !== action.payload;
+          return feature !== action.payload; //filter through additionalfeatures & return those that are not the same as feature
         }),
       };
     case "REMOVE_FEATURE":
-      return { ...state }; //
+      return {
+        ...state,
+        additionalPrice: state.additionalPrice - action.payload.price,
+        car: {
+          ...state.car,
+          features: state.car.features.filter(
+            (feature) => feature !== action.payload
+          ),
+        },
+        additionalFeatures: [...state.additionalFeatures, action.payload],
+      }; //
     default:
       return state;
   }

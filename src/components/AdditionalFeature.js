@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 
 //import actions
-import { addFeatureAction, removeFeatureAction } from "../actions/carActions";
+import { addFeatureAction } from "../actions/carActions";
 
 const AdditionalFeature = (props) => {
+  console.log("ADD FEATURE", props);
   return (
     <li>
       {/* Add an onClick that will let you add a feature to your car */}
